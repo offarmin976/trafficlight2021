@@ -85,6 +85,7 @@ public class TrafficLightGui extends JFrame implements ActionListener {
             }
              while (isAutoMode) {
                  //TODO call the controller
+                 trafficLightCtrl.nextState();
 
                 try {
                     if (yellow.isOn) {
@@ -113,6 +114,15 @@ public class TrafficLightGui extends JFrame implements ActionListener {
     }
 
     public void setLight(TrafficLightColor trafficLightColor){
-        //TODO setLight
+
+        red.turnOn(trafficLightCtrl.getCurrentState() == trafficLightCtrl.getRedState());
+        red.turnoff(trafficLightCtrl.getCurrentState() == trafficLightCtrl.getRedState());
+        //WARUM DAS NICHT GEHT BLEIBT MIR EIN RÄTSEL
+
+        yellow.turnOn(trafficLightCtrl.getCurrentState() == trafficLightCtrl.getYellowState());
+
+        green.turnOn(trafficLightCtrl.getCurrentState() == trafficLightCtrl.getGreenState());
+
+
     }
 }

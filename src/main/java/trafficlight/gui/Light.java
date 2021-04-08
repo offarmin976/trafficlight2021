@@ -8,6 +8,7 @@ class Light extends JPanel {
     int radius = 40;
     int border = 10;
     boolean isOn = false;
+    boolean isOff = true;
 
     Light(Color color){
         on = color;
@@ -18,8 +19,18 @@ class Light extends JPanel {
         repaint();
     }
 
+    public void turnoff(boolean b)
+    {
+        isOff = b;
+        repaint();
+    }
+
     public boolean isOn(){
         return isOn;
+    }
+
+    public boolean isOff(){
+        return isOff;
     }
 
 

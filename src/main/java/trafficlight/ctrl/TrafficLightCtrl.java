@@ -2,6 +2,9 @@ package trafficlight.ctrl;
 
 import trafficlight.gui.TrafficLightGui;
 import trafficlight.states.State;
+import trafficlight.states.green;
+import trafficlight.states.red;
+import trafficlight.states.yellow;
 
 public class TrafficLightCtrl {
 
@@ -17,8 +20,14 @@ public class TrafficLightCtrl {
 
     private TrafficLightGui gui;
 
+    private static TrafficLightCtrl instance = new TrafficLightCtrl();        //Singelton Umwandlung
 
-    public TrafficLightCtrl() {
+    public static TrafficLightCtrl getInstance()            //Singelton Umwandlung
+    {
+        return instance;
+    }
+
+    private TrafficLightCtrl()  {                           //Singelton Umwandlung
         super();
         initStates();
         gui = new TrafficLightGui(this);
@@ -26,7 +35,16 @@ public class TrafficLightCtrl {
     }
 
     private void initStates() {
-        //TODO create the states and set current and previous state
+        //TODO create the states and set current and previous states
+
+        this.redState = new red(this);
+        this.yellowState = new yellow(this);
+        this.greenState = new green(this);
+
+
+        setCurrentState(redState);
+        setPreviousState(greenState);
+
     }
 
     public State getGreenState() {
@@ -62,6 +80,11 @@ public class TrafficLightCtrl {
     }
 
     public void nextState() {
-        //TODO handle GUi request and update GUI
+
+        getCurrentState().nextState();
+        gui.setLight(getCurrentState().getState());
+
+
+
     }
 }
